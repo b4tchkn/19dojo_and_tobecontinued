@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.0"
@@ -32,4 +34,17 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation 'com.ogaclejapan.smarttablayout:library:2.0.0@aar'
+    implementation 'com.ogaclejapan.smarttablayout:utils-v4:2.0.0@aar'
+
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.github.skydoves:elasticviews:1.1.2'
+
+    implementation 'androidx.room:room-runtime:2.0.0'
+    kapt "androidx.room:room-compiler:2.0.0"
+
+    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
+
+    implementation 'jp.wasabeef:recyclerview-animators:3.0.0'
 }

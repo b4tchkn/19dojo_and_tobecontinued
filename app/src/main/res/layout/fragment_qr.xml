@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:clickable="true"
+              android:background="@drawable/shape_rounded_corner">
+
+    <ImageView
+            android:id="@+id/qrImage"
+            android:layout_width="260dp"
+            android:layout_height="260dp"
+            android:src="@drawable/ameba_icon"
+            android:layout_margin="40dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:background="@drawable/image_rounded"/>
+
+    <com.skydoves.elasticviews.ElasticButton
+            android:id="@+id/backButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:button_labelText="Back"
+            app:button_labelSize="15"
+            app:button_labelStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="80dp"
+            android:layout_marginLeft="80dp"/>
+</LinearLayout>
