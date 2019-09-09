@@ -1,4 +1,4 @@
-package com.batch.dojo19tobecontinued
+package com.batch.dojo19tobecontinued.QR
 
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.batch.dojo19tobecontinued.R
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.WriterException
 import com.journeyapps.barcodescanner.BarcodeEncoder

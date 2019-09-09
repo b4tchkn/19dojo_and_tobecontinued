@@ -1,4 +1,4 @@
-package com.batch.dojo19tobecontinued
+package com.batch.dojo19tobecontinued.MyPage
 
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
+import com.batch.dojo19tobecontinued.QR.QRFragment
+import com.batch.dojo19tobecontinued.R
 import kotlinx.android.synthetic.main.fragment_mypage.*
 
 class MyPageFragment: Fragment() {

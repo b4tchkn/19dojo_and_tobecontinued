@@ -1,4 +1,4 @@
-package com.batch.dojo19tobecontinued
+package com.batch.dojo19tobecontinued.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -1,4 +1,4 @@
-package com.batch.dojo19tobecontinued
+package com.batch.dojo19tobecontinued.FriendList
 
 import android.app.Activity
 import android.content.Intent
@@ -14,6 +14,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
+import com.batch.dojo19tobecontinued.model.MyDatabase
+import com.batch.dojo19tobecontinued.R
+import com.batch.dojo19tobecontinued.model.User
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import kotlinx.android.synthetic.main.fragment_friendlist.*
@@ -55,7 +58,12 @@ class FriendListFragment : Fragment() {
         db.userDao().getUsers().observe(this, Observer {
             val profileList = it as MutableList<User>
             view?.findViewById<RecyclerView>(R.id.profileRecyclerView).also { recyclerView: RecyclerView? ->
-                val alphaAdapter = AlphaInAnimationAdapter(FrienViewAdapter(view?.context!!, profileList))
+                val alphaAdapter = AlphaInAnimationAdapter(
+                    FrienViewAdapter(
+                        view?.context!!,
+                        profileList
+                    )
+                )
                 recyclerView?.adapter = ScaleInAnimationAdapter(alphaAdapter).apply {
                     setDuration(500)
                     setHasStableIds(false)

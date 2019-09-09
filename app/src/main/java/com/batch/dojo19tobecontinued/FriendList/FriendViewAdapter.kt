@@ -1,4 +1,4 @@
-package com.batch.dojo19tobecontinued
+package com.batch.dojo19tobecontinued.FriendList
 
 import android.content.Context
 import android.content.Intent
@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.batch.dojo19tobecontinued.R
+import com.batch.dojo19tobecontinued.model.User
+import com.batch.dojo19tobecontinued.WebViewActivity
 
 class FrienViewAdapter(private val context: Context, private val profileList: MutableList<User>) :
     RecyclerView.Adapter<FrienViewAdapter.ProfileViewHolder>() {
@@ -23,7 +26,11 @@ class FrienViewAdapter(private val context: Context, private val profileList: Mu
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileViewHolder =
-        ProfileViewHolder(LayoutInflater.from(context).inflate(R.layout.friendlist_item, parent, false))
+        ProfileViewHolder(
+            LayoutInflater.from(
+                context
+            ).inflate(R.layout.friendlist_item, parent, false)
+        )
 
     override fun getItemCount() = profileList.size
 
