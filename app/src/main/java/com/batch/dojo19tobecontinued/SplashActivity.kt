@@ -26,9 +26,6 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        //this.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        //window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-
         mDelayHandler = Handler()
         mDelayHandler!!.postDelayed(mRunnable, SPLASHDELAY)
     }

@@ -25,21 +25,6 @@ class QRFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /*
-        // arc
-        val inSet = TransitionSet()
-        val inflater = TransitionInflater.from(context)
-        val transition = inflater.inflateTransition(R.transition.arc)
-
-        inSet.apply {
-            addTransition(transition)
-            duration = 380
-            interpolator = AccelerateDecelerateInterpolator()
-        }
-
-        window.sharedElementEnterTransition = inSet
-        */
-
         val pref = PreferenceManager.getDefaultSharedPreferences(context)
 
         val fullName = pref.getString(FULLNAME, "")

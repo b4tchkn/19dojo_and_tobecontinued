@@ -21,7 +21,8 @@ class MainActivity : AppCompatActivity() {
         val data: Uri? = intent?.data
         Log.d("DATA", data.toString())
 
-        val db = Room.databaseBuilder(applicationContext, MyDatabase::class.java, "user").build()
+        val db = Room.databaseBuilder(applicationContext, MyDatabase::class.java, "user")
+            .build()
 
         if (data != null) {
             val uri = Uri.parse(data.toString())

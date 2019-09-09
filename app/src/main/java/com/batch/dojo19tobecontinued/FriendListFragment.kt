@@ -61,8 +61,6 @@ class FriendListFragment : Fragment() {
                     setHasStableIds(false)
                     setFirstOnly(false)
                     setInterpolator(OvershootInterpolator(.100f))
-                    //setInterpolator(BounceInterpolator())
-                    //setInterpolator(AccelerateInterpolator())
                 }
                 recyclerView?.layoutManager = LinearLayoutManager(view?.context!!)
             }
@@ -103,20 +101,5 @@ class FriendListFragment : Fragment() {
             // だめだった時の処理
             Toast.makeText(context, "QR Read Error", Toast.LENGTH_LONG).show()
         }
-
-
-
-
-        /*
-        val db = Room.databaseBuilder(context!!, MyDatabase::class.java, "user").build()
-
-        db.userDao().getUsers().observe(this, Observer {
-            val profileList = it as MutableList<User>
-            view?.findViewById<RecyclerView>(R.id.profileRecyclerView).apply {
-                profileRecyclerView?.layoutManager = LinearLayoutManager(view?.context!!)
-            }
-            profileRecyclerView.adapter = ProfileViewAdapter(view?.context!!, profileList)
-        })
-        */
     }
 }

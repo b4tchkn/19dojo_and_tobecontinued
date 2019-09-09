@@ -6,9 +6,6 @@ import androidx.room.Entity
 @Entity(primaryKeys = ["fullName", "gitHub", "twitter"])
 data class User (
 
-    //@PrimaryKey(autoGenerate = true)
-    //var uid: Int = 0,
-
     @ColumnInfo(name = "fullName")
     var fullName: String = "" ,
 
