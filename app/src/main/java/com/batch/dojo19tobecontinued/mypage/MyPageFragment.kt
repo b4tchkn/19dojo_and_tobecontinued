@@ -1,4 +1,4 @@
-package com.batch.dojo19tobecontinued.MyPage
+package com.batch.dojo19tobecontinued.mypage
 
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -10,18 +10,22 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
-import com.batch.dojo19tobecontinued.QR.QRFragment
 import com.batch.dojo19tobecontinued.R
+import com.batch.dojo19tobecontinued.qr.QRFragment
 import kotlinx.android.synthetic.main.fragment_mypage.*
 
-class MyPageFragment: Fragment() {
+class MyPageFragment : Fragment() {
 
     //private val pref = PreferenceManager.getDefaultSharedPreferences(context)
     private val FULLNAME = "FULLNAME"
     private val GITHUB = "GITHUB"
     private val TWITTER = "TWITTER"
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_mypage, container, false)
     }
 

@@ -1,4 +1,4 @@
-package com.batch.dojo19tobecontinued.FriendList
+package com.batch.dojo19tobecontinued.friendlist
 
 import android.app.Activity
 import android.content.Intent
@@ -14,17 +14,20 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.batch.dojo19tobecontinued.model.MyDatabase
 import com.batch.dojo19tobecontinued.R
+import com.batch.dojo19tobecontinued.model.MyDatabase
 import com.batch.dojo19tobecontinued.model.User
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import kotlinx.android.synthetic.main.fragment_friendlist.*
-import java.lang.Exception
 import kotlin.concurrent.thread
 
 class FriendListFragment : Fragment() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_friendlist, container, false)
 
         //getUserDB()
@@ -57,26 +60,26 @@ class FriendListFragment : Fragment() {
 
         db.userDao().getUsers().observe(this, Observer {
             val profileList = it as MutableList<User>
-            view?.findViewById<RecyclerView>(R.id.profileRecyclerView).also { recyclerView: RecyclerView? ->
-                val alphaAdapter = AlphaInAnimationAdapter(
-                    FrienViewAdapter(
-                        view?.context!!,
-                        profileList
+            view?.findViewById<RecyclerView>(R.id.profileRecyclerView)
+                .also { recyclerView: RecyclerView? ->
+                    val alphaAdapter = AlphaInAnimationAdapter(
+                        FrienViewAdapter(
+                            view?.context!!,
+                            profileList
+                        )
                     )
-                )
-                recyclerView?.adapter = ScaleInAnimationAdapter(alphaAdapter).apply {
-                    setDuration(500)
-                    setHasStableIds(false)
-                    setFirstOnly(false)
-                    setInterpolator(OvershootInterpolator(.100f))
+                    recyclerView?.adapter = ScaleInAnimationAdapter(alphaAdapter).apply {
+                        setDuration(500)
+                        setHasStableIds(false)
+                        setFirstOnly(false)
+                        setInterpolator(OvershootInterpolator(.100f))
+                    }
+                    recyclerView?.layoutManager = LinearLayoutManager(view?.context!!)
                 }
-                recyclerView?.layoutManager = LinearLayoutManager(view?.context!!)
-            }
         })
     }
 
-    override
-    fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
             // QRコード読み取り成功時の処理

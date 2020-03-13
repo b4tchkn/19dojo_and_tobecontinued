@@ -1,4 +1,4 @@
-package com.batch.dojo19tobecontinued.FriendList
+package com.batch.dojo19tobecontinued.friendlist
 
 import android.content.Context
 import android.content.Intent
@@ -10,8 +10,8 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.batch.dojo19tobecontinued.R
-import com.batch.dojo19tobecontinued.model.User
 import com.batch.dojo19tobecontinued.WebViewActivity
+import com.batch.dojo19tobecontinued.model.User
 
 class FrienViewAdapter(private val context: Context, private val profileList: MutableList<User>) :
     RecyclerView.Adapter<FrienViewAdapter.ProfileViewHolder>() {
