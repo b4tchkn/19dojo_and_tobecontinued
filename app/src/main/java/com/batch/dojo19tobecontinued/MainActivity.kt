@@ -6,8 +6,8 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
-import com.batch.dojo19tobecontinued.model.MyDatabase
-import com.batch.dojo19tobecontinued.model.User
+import com.batch.dojo19tobecontinued.friendlist.model.MyDatabase
+import com.batch.dojo19tobecontinued.friendlist.model.User
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.concurrent.thread
 

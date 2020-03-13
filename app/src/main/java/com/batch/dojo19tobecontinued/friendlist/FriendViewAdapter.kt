@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.batch.dojo19tobecontinued.R
 import com.batch.dojo19tobecontinued.WebViewActivity
-import com.batch.dojo19tobecontinued.model.User
+import com.batch.dojo19tobecontinued.friendlist.model.User
 
 class FrienViewAdapter(private val context: Context, private val profileList: MutableList<User>) :
     RecyclerView.Adapter<FrienViewAdapter.ProfileViewHolder>() {

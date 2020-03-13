@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.batch.dojo19tobecontinued.R
-import com.batch.dojo19tobecontinued.model.MyDatabase
-import com.batch.dojo19tobecontinued.model.User
+import com.batch.dojo19tobecontinued.friendlist.model.MyDatabase
+import com.batch.dojo19tobecontinued.friendlist.model.User
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import kotlinx.android.synthetic.main.fragment_friendlist.*

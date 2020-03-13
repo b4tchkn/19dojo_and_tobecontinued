@@ -1,4 +1,4 @@
-package com.batch.dojo19tobecontinued.model
+package com.batch.dojo19tobecontinued.friendlist.model
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

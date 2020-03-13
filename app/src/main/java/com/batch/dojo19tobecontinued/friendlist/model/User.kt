@@ -1,11 +1,10 @@
-package com.batch.dojo19tobecontinued.model
+package com.batch.dojo19tobecontinued.friendlist.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 
 @Entity(primaryKeys = ["fullName", "gitHub", "twitter"])
 data class User(
-
     @ColumnInfo(name = "fullName")
     var fullName: String = "",
 
