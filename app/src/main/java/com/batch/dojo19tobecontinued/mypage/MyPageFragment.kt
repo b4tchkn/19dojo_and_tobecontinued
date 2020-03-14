@@ -30,7 +30,6 @@ class MyPageFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         val pref = PreferenceManager.getDefaultSharedPreferences(context)
         val fullName = pref?.getString(FULLNAME, "")
         val gitHub = pref?.getString(GITHUB, "")

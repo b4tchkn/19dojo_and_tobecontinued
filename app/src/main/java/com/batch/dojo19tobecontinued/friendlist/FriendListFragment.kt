@@ -62,17 +62,12 @@ class FriendListFragment : Fragment() {
             val profileList = it as MutableList<User>
             view?.findViewById<RecyclerView>(R.id.profileRecyclerView)
                 .also { recyclerView: RecyclerView? ->
-<<<<<<< Updated upstream:app/src/main/java/com/batch/dojo19tobecontinued/friendlist/FriendListFragment.kt
                     val alphaAdapter = AlphaInAnimationAdapter(
                         FrienViewAdapter(
                             view?.context!!,
                             profileList
                         )
                     )
-=======
-                    val alphaAdapter =
-                        AlphaInAnimationAdapter(FrienViewAdapter(view?.context!!, profileList))
->>>>>>> Stashed changes:app/src/main/java/com/batch/dojo19tobecontinued/FriendListFragment.kt
                     recyclerView?.adapter = ScaleInAnimationAdapter(alphaAdapter).apply {
                         setDuration(500)
                         setHasStableIds(false)
