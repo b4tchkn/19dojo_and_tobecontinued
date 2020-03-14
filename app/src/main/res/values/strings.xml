@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Dojo19tobecontinued</string>
+    <string name="mypage_title">Mypage</string>
+    <string name="friend_list_title">FriendList</string>
     <string name="full_name_key">FULLNAME</string>
     <string name="github_key">GITHUB</string>
     <string name="twitter_key">TWITTER</string>

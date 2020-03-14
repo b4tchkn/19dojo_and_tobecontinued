@@ -5,22 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".main.MainActivity">
 
-    <com.ogaclejapan.smarttablayout.SmartTabLayout
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        app:stl_defaultTabTextColor="#FC000000"
-        app:stl_defaultTabTextSize="12sp"
-        app:stl_distributeEvenly="true"
-        app:stl_dividerThickness="0dp"
-        app:stl_indicatorColor="@color/colorPrimaryDark"
-        app:stl_indicatorCornerRadius="2dp"
-        app:stl_indicatorThickness="4dp"
-        app:stl_underlineThickness="0dp" />
+        android:layout_height="wrap_content" />
 
-    <androidx.viewpager.widget.ViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
