@@ -7,14 +7,14 @@ data class MyPageState(
     val isFullNameEmpty: Boolean,
     val isGithubIDEmpty: Boolean,
     val isTwitterIDEmpty: Boolean,
-    val qrbitmap: Bitmap?
+    val qrBitmap: Bitmap?
 ) {
     companion object {
         val INITIAL = MyPageState(
             isFullNameEmpty = false,
             isGithubIDEmpty = false,
             isTwitterIDEmpty = false,
-            qrbitmap = null
+            qrBitmap = null
         )
     }
 }

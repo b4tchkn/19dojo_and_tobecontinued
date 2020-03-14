@@ -58,7 +58,7 @@ class MyPageViewModel : ViewModel() {
                 500,
                 500
             )
-            _state.value = _state.value?.copy(qrbitmap = bitmap)
+            _state.value = _state.value?.copy(qrBitmap = bitmap)
         } catch (e: WriterException) {
             throw AndroidRuntimeException("Barcode Error", e)
         }
