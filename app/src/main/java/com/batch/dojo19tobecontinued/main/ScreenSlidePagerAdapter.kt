@@ -12,8 +12,8 @@ class ScreenSlidePagerAdapter(fragmentActivity: FragmentActivity) :
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> MyPageFragment()
-            else -> FriendListFragment()
+            0 -> FriendListFragment()
+            else -> MyPageFragment()
         }
     }
 }

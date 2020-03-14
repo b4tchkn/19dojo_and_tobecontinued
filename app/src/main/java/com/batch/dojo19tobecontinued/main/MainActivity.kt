@@ -17,8 +17,8 @@ class MainActivity : FragmentActivity() {
 
         TabLayoutMediator(tab_layout, pager) { tab, position ->
             when (position) {
-                0 -> tab.text = getText(R.string.mypage_title)
-                else -> tab.text = getText(R.string.friend_list_title)
+                0 -> tab.text = getText(R.string.friend_list_title)
+                else -> tab.text = getText(R.string.mypage_title)
             }
         }.attach()
     }
