@@ -51,7 +51,7 @@ class MyPageFragment : Fragment() {
     }
 
     private fun checkState(state: MyPageState) {
-        val errorMessage = getString(R.string.is_empty_error)
+        val errorMessage = " "
         if (state.isFullNameEmpty) {
             full_name_text_input.error = errorMessage
             return

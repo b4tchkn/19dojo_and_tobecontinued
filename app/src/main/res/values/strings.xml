@@ -4,4 +4,7 @@
     <string name="github_key">GITHUB</string>
     <string name="twitter_key">TWITTER</string>
     <string name="is_empty_error">入力してください</string>
+    <string name="full_name_hint">名前を入力してください</string>
+    <string name="github_hint">GitHub IDを入力してください</string>
+    <string name="twitter_hint">Twitter IDを入力してください</string>
 </resources>

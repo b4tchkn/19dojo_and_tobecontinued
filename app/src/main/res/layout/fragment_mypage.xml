@@ -1,71 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/full_name_text_input"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="wrap_content"
+            style="@style/Widget.App.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="100dp"
-            android:hint="FullName"
-            android:inputType="textPersonName"
-            android:theme="@style/EditText.Boxed"
-            app:errorEnabled="true"
-            app:errorTextAppearance="@style/Sample.InputLayout.Error">
+            android:layout_marginEnd="50dp"
+            android:hint="@string/full_name_hint"
+            android:inputType="textEmailAddress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/full_name_edit_text"
-                android:layout_width="200dp"
+                android:layout_width="match_parent"
                 android:layout_height="60dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/github_text_input"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="wrap_content"
+            style="@style/Widget.App.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="10dp"
-            android:hint="GitHub Account"
-            android:inputType="textPersonName"
-            android:theme="@style/EditText.Boxed"
-            app:errorEnabled="true"
-            app:errorTextAppearance="@style/Sample.InputLayout.Error">
+            android:layout_marginEnd="50dp"
+            android:hint="@string/github_hint"
+            android:inputType="textEmailAddress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/full_name_text_input">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/github_edit_text"
-                android:layout_width="200dp"
+                android:layout_width="match_parent"
                 android:layout_height="60dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/twitter_text_input"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="wrap_content"
+            style="@style/Widget.App.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="10dp"
-            android:hint="Twitter Account"
-            android:inputType="textPersonName"
-            android:theme="@style/EditText.Boxed"
-            app:errorEnabled="true"
-            app:errorTextAppearance="@style/Sample.InputLayout.Error">
+            android:layout_marginEnd="50dp"
+            android:hint="@string/twitter_hint"
+            android:inputType="textEmailAddress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/github_text_input">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/twitter_edit_text"
-                android:layout_width="200dp"
+                android:layout_width="match_parent"
                 android:layout_height="60dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,6 +86,9 @@
             android:textColor="#FFFFFF"
             app:button_labelSize="15"
             app:button_labelStyle="bold"
-            app:button_labelText="Create QR" />
-    </LinearLayout>
-</FrameLayout>
+            app:button_labelText="Create QR"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/twitter_text_input" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
