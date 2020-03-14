@@ -1,4 +1,4 @@
-package com.batch.dojo19tobecontinued
+package com.batch.dojo19tobecontinued.qr
 
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -7,18 +7,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.batch.dojo19tobecontinued.R
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.WriterException
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import kotlinx.android.synthetic.main.fragment_qr.*
 
-class QRFragment: Fragment() {
+class QRFragment : Fragment() {
 
     private val FULLNAME = "FULLNAME"
     private val GITHUB = "GITHUB"
     private val TWITTER = "TWITTER"
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_qr, container, false)
     }
 
@@ -51,7 +56,6 @@ class QRFragment: Fragment() {
             transaction?.commit()
         }
     }
-
 
 
 }
