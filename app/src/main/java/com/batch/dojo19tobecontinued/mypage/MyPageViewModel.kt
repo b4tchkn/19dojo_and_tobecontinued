@@ -2,7 +2,10 @@ package com.batch.dojo19tobecontinued.mypage
 
 import android.app.Activity
 import android.content.Context
+import android.text.Editable
+import android.text.TextUtils
 import android.util.AndroidRuntimeException
+import android.widget.Toast
 import androidx.core.content.edit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,27 +19,26 @@ class MyPageViewModel : ViewModel() {
     private val _state = MutableLiveData(MyPageState.INITIAL)
     val state: LiveData<MyPageState> = _state
 
-    fun onCreateQR(activity: Activity, fullName: String?, githubID: String?, twitterID: String?) {
-        if (fullName == null) {
-            _state.value = _state.value?.copy(isFullNameEmpty = true)
-            return
-        } else {
-            _state.value = _state.value?.copy(isFullNameEmpty = false)
-        }
+    fun onCreateQR(
+        activity: Activity,
+        fullNameEditText: Editable?,
+        githubIDEditText: Editable?,
+        twitterIDEditText: Editable?
+    ) {
+        _state.value = _state.value?.copy(
+            isFullNameEmpty = TextUtils.isEmpty(fullNameEditText),
+            isGithubIDEmpty = TextUtils.isEmpty(githubIDEditText),
+            isTwitterIDEmpty = TextUtils.isEmpty(twitterIDEditText),
+            qrBitmap = null
+        )
+        if (TextUtils.isEmpty(fullNameEditText) &&
+            TextUtils.isEmpty(githubIDEditText) &&
+            TextUtils.isEmpty(twitterIDEditText)
+        ) return
 
-        if (githubID == null) {
-            _state.value = _state.value?.copy(isGithubIDEmpty = true)
-            return
-        } else {
-            _state.value = _state.value?.copy(isGithubIDEmpty = false)
-        }
-
-        if (twitterID == null) {
-            _state.value = _state.value?.copy(isTwitterIDEmpty = true)
-            return
-        } else {
-            _state.value = _state.value?.copy(isTwitterIDEmpty = false)
-        }
+        val fullName = fullNameEditText.toString()
+        val githubID = githubIDEditText.toString()
+        val twitterID = twitterIDEditText.toString()
 
         val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
         sharedPref.edit {
@@ -44,8 +46,8 @@ class MyPageViewModel : ViewModel() {
             putString(activity.getString(R.string.github_key), githubID)
             putString(activity.getString(R.string.twitter_key), twitterID)
         }
+
         if (fullName.contains(" ")) {
-//            fullName.replace(" ", "%20")??????
             fullName.replaceSpace()
         }
 
@@ -59,6 +61,7 @@ class MyPageViewModel : ViewModel() {
                 500
             )
             _state.value = _state.value?.copy(qrBitmap = bitmap)
+            Toast.makeText(activity, qrData, Toast.LENGTH_SHORT).show()
         } catch (e: WriterException) {
             throw AndroidRuntimeException("Barcode Error", e)
         }

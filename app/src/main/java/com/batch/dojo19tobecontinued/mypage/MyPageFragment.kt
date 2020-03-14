@@ -1,25 +1,23 @@
 package com.batch.dojo19tobecontinued.mypage
 
+import android.content.Context
 import android.os.Bundle
-import android.preference.PreferenceManager
-import android.transition.ChangeBounds
-import android.transition.TransitionSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.edit
+import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.batch.dojo19tobecontinued.R
-import com.batch.dojo19tobecontinued.qr.QRFragment
 import kotlinx.android.synthetic.main.fragment_mypage.*
 
 class MyPageFragment : Fragment() {
 
-    //private val pref = PreferenceManager.getDefaultSharedPreferences(context)
-    private val FULLNAME = "FULLNAME"
-    private val GITHUB = "GITHUB"
-    private val TWITTER = "TWITTER"
+    private val viewModel: MyPageViewModel by lazy {
+        ViewModelProvider(this).get(MyPageViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,73 +28,61 @@ class MyPageFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val pref = PreferenceManager.getDefaultSharedPreferences(context)
-        val fullName = pref?.getString(FULLNAME, "")
-        val gitHub = pref?.getString(GITHUB, "")
-        val twitter = pref?.getString(TWITTER, "")
+        val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE) ?: return
+        val fullName = sharedPref.getString(getString(R.string.full_name_key), "")
+        val githubID = sharedPref.getString(getString(R.string.github_key), "")
+        val twitterID = sharedPref.getString(getString(R.string.twitter_key), "")
 
-        fullNameText.setText(fullName)
-        gitHubText.setText(gitHub)
-        twitterText.setText(twitter)
+        full_name_edit_text.setText(fullName)
+        github_edit_text.setText(githubID)
+        twitter_edit_text.setText(twitterID)
 
-        createQrButton.setOnClickListener { onCreateQRTapped() }
+        createQrButton.setOnClickListener {
+            viewModel.onCreateQR(
+                requireActivity(),
+                full_name_edit_text.text,
+                github_edit_text.text,
+                twitter_edit_text.text
+            )
+        }
+        viewModel.state.observe(this, Observer {
+            checkState(it)
+        })
     }
 
-
-    private fun onCreateQRTapped() {
-        val pref = PreferenceManager.getDefaultSharedPreferences(context)
-        pref?.edit {
-
-            putString(FULLNAME, fullNameText.text.toString())
-            putString(GITHUB, gitHubText.text.toString())
-            putString(TWITTER, twitterText.text.toString())
-        }
-
-        if (fullName.error != null) {
-            fullName.error = null
-        }
-
-        if (gitHub.error != null) {
-            gitHub.error = null
-        }
-
-        if (pref?.getString(FULLNAME, "") != "" && pref?.getString(GITHUB, "") != "") {
-
-            val transaction = fragmentManager?.beginTransaction()
-            val qrFragment = QRFragment()
-
-            val ts = TransitionSet()
-            ts.addTransition(ChangeBounds())
-            qrFragment.enterTransition
-
-            transaction?.add(R.id.qrContainer, qrFragment)
-            transaction?.commit()
-
-            val fullName = pref.getString(FULLNAME, "")
-            var newFullName = ""
-            if (fullName!!.contains(" ")) {
-                newFullName = fullName.replace(" ", "%20")
-            }
-            val gitHub = pref.getString(GITHUB, "")
-            val twitter = pref.getString(TWITTER, "")
-
-            val data = "ca-tech://dojo/share?iam=${newFullName}&tw=${twitter}&gh=${gitHub}"
-
-            Toast.makeText(view?.context, data, Toast.LENGTH_LONG).show()
-
-            // Toast.makeText(view?.context, "CREATE QR!", Toast.LENGTH_LONG).show()
-        } else if (pref.getString(FULLNAME, "") == "") {
-            fullName.error = "The field is required."
+    private fun checkState(state: MyPageState) {
+        val errorMessage = getString(R.string.is_empty_error)
+        if (state.isFullNameEmpty) {
+            full_name_text_input.error = errorMessage
+            return
         } else {
-            gitHub.error = "The field is required."
+            full_name_text_input.error = null
         }
 
-        fullName.clearFocus()
-        gitHub.clearFocus()
-        twitter.clearFocus()
+        if (state.isGithubIDEmpty) {
+            github_text_input.error = errorMessage
+            return
+        } else {
+            github_text_input.error = null
+        }
 
+        if (state.isTwitterIDEmpty) {
+            twitter_text_input.error = errorMessage
+            return
+        } else {
+            twitter_text_input.error = null
+        }
 
-        // TODO: QR生成したらポップアップ画面みたいの出してQR表示したい
-        // できなかったら，普通にActivityで画面遷移か，Tab追加してQR表示
+        if (state.qrBitmap != null) {
+            val qrImageView = ImageView(context)
+            qrImageView.setImageBitmap(state.qrBitmap)
+
+            context?.let {
+                AlertDialog.Builder(it)
+                    .setView(qrImageView)
+                    .setPositiveButton("閉じる", null)
+                    .show()
+            }
+        }
     }
 }

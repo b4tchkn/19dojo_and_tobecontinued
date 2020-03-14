@@ -1,7 +1,6 @@
 package com.batch.dojo19tobecontinued.mypage
 
 import android.graphics.Bitmap
-import android.widget.ImageView
 
 data class MyPageState(
     val isFullNameEmpty: Boolean,

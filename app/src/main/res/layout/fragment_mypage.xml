@@ -1,100 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:id="@+id/fullName"
-                android:layout_marginTop="100dp"
-                android:hint="FullName"
-                android:layout_gravity="center"
-                app:errorEnabled="true"
-                android:theme="@style/EditText.Boxed"
-                app:errorTextAppearance="@style/Sample.InputLayout.Error">
+            android:id="@+id/full_name_text_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="100dp"
+            android:hint="FullName"
+            android:inputType="textPersonName"
+            android:theme="@style/EditText.Boxed"
+            app:errorEnabled="true"
+            app:errorTextAppearance="@style/Sample.InputLayout.Error">
+
             <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/fullNameText"
-                    android:layout_width="200dp"
-                    android:layout_height="60dp">
-            </com.google.android.material.textfield.TextInputEditText>
+                android:id="@+id/full_name_edit_text"
+                android:layout_width="200dp"
+                android:layout_height="60dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:id="@+id/gitHub"
-                android:layout_marginTop="10dp"
-                android:hint="GitHub Account"
-                android:layout_gravity="center"
-                app:errorEnabled="true"
-                android:theme="@style/EditText.Boxed"
-                app:errorTextAppearance="@style/Sample.InputLayout.Error">
+            android:id="@+id/github_text_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:hint="GitHub Account"
+            android:inputType="textPersonName"
+            android:theme="@style/EditText.Boxed"
+            app:errorEnabled="true"
+            app:errorTextAppearance="@style/Sample.InputLayout.Error">
+
             <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/gitHubText"
-                    android:layout_width="200dp"
-                    android:layout_height="60dp">
-            </com.google.android.material.textfield.TextInputEditText>
+                android:id="@+id/github_edit_text"
+                android:layout_width="200dp"
+                android:layout_height="60dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
         <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:id="@+id/twitter"
-                android:layout_marginTop="10dp"
-                android:hint="Twitter Account"
-                android:layout_gravity="center"
-                app:errorEnabled="true"
-                android:theme="@style/EditText.Boxed"
-                app:errorTextAppearance="@style/Sample.InputLayout.Error">
+            android:id="@+id/twitter_text_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:hint="Twitter Account"
+            android:inputType="textPersonName"
+            android:theme="@style/EditText.Boxed"
+            app:errorEnabled="true"
+            app:errorTextAppearance="@style/Sample.InputLayout.Error">
+
             <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/twitterText"
-                    android:layout_width="200dp"
-                    android:layout_height="60dp">
-            </com.google.android.material.textfield.TextInputEditText>
+                android:id="@+id/twitter_edit_text"
+                android:layout_width="200dp"
+                android:layout_height="60dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
         <com.skydoves.elasticviews.ElasticButton
-                app:button_labelText="Create QR"
-                android:layout_width="200dp"
-                android:layout_gravity="center"
-                android:layout_height="wrap_content"
-                android:id="@+id/createQrButton"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/buttonshape"
-                android:textColor="#FFFFFF"
-                app:button_labelStyle="bold"
-                app:button_labelSize="15"/>
+            android:id="@+id/createQrButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF"
+            app:button_labelSize="15"
+            app:button_labelStyle="bold"
+            app:button_labelText="Create QR" />
     </LinearLayout>
-
-    <LinearLayout
-            android:id="@+id/qrContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="48dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginBottom="130dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="32dp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="32dp"
-            android:orientation="vertical">
-    </LinearLayout>
-
 </FrameLayout>
