@@ -9,4 +9,6 @@
     <string name="full_name_hint">名前を入力してください</string>
     <string name="github_hint">GitHub IDを入力してください</string>
     <string name="twitter_hint">Twitter IDを入力してください</string>
+    <string name="scan_intent_key">com.google.zxing.client.android.SCAN</string>
+    <string name="go_to_martket_itent_key">market://details?id=com.google.zxing.client.android</string>
 </resources>

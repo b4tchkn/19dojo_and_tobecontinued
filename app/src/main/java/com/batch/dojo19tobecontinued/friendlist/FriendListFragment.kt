@@ -1,116 +1,90 @@
 package com.batch.dojo19tobecontinued.friendlist
 
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import com.batch.dojo19tobecontinued.R
-import com.batch.dojo19tobecontinued.friendlist.model.MyDatabase
-import com.batch.dojo19tobecontinued.friendlist.model.User
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import kotlinx.android.synthetic.main.fragment_friendlist.*
-import kotlin.concurrent.thread
 
 class FriendListFragment : Fragment() {
+
+    private val friendListAdapter = FriendListAdapter()
+
+    private val viewModel: FriendListViewModel by lazy {
+        ViewModelProvider(this).get(FriendListViewModel::class.java)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_friendlist, container, false)
-
-        //getUserDB()
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.loadDatabase(requireContext())
 
-        getUserDB()
-
-        addFriendFloatingActionButton.setOnClickListener { onAddFriendButtonTapped() }
-    }
-
-    private fun onAddFriendButtonTapped() {
-        try {
-            val intent = Intent("com.google.zxing.client.android.SCAN")
-            intent.putExtra("SCANMODE", "QR_CODE_MODE")
-            startActivityForResult(intent, 0)
-        } catch (e: Exception) {
-            val marketUri = Uri.parse("market://details?id=com.google.zxing.client.android")
-            val marketIntent = Intent(Intent.ACTION_VIEW, marketUri)
-            startActivity(marketIntent)
+        friend_recycler_view.apply {
+            layoutManager = LinearLayoutManager(context)
+            val alphaAdapter = AlphaInAnimationAdapter(friendListAdapter)
+            adapter = ScaleInAnimationAdapter(alphaAdapter).apply {
+                setDuration(500)
+                setHasStableIds(false)
+                setFirstOnly(false)
+                setInterpolator(OvershootInterpolator(.100f))
+            }
         }
-    }
 
+        add_friend_button.setOnClickListener {
+            try {
+                val intent = Intent("com.google.zxing.client.android.SCAN")
+                intent.putExtra("SCANMODE", "QR_CODE_MODE")
+                startActivityForResult(intent, 0)
+            } catch (e: Exception) {
+                val marketUri = Uri.parse("market://details?id=com.google.zxing.client.android")
+                val marketIntent = Intent(Intent.ACTION_VIEW, marketUri)
+                startActivity(marketIntent)
+            }
+        }
 
-    private fun getUserDB() {
-        val db = Room.databaseBuilder(context!!, MyDatabase::class.java, "user").build()
+        viewModel.friendList.observe(this, Observer {
+            Log.d("DojoApp", "friendList変更検知！中身$it")
+            friendListAdapter.setFriends(it)
+        })
 
-        db.userDao().getUsers().observe(this, Observer {
-            val profileList = it as MutableList<User>
-            view?.findViewById<RecyclerView>(R.id.profileRecyclerView)
-                .also { recyclerView: RecyclerView? ->
-                    val alphaAdapter = AlphaInAnimationAdapter(
-                        FrienViewAdapter(
-                            view?.context!!,
-                            profileList
-                        )
-                    )
-                    recyclerView?.adapter = ScaleInAnimationAdapter(alphaAdapter).apply {
-                        setDuration(500)
-                        setHasStableIds(false)
-                        setFirstOnly(false)
-                        setInterpolator(OvershootInterpolator(.100f))
-                    }
-                    recyclerView?.layoutManager = LinearLayoutManager(view?.context!!)
-                }
+        viewModel.state.observe(this, Observer {
+            checkState(it)
         })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
-            // QRコード読み取り成功時の処理
-            // 値保存したりとか…
-            val content = data?.getStringExtra("SCAN_RESULT")
+        Log.d("DojoApp", "onActivityResultだよ")
+        viewModel.getQRReadResult(requestCode, resultCode, data)
+    }
 
-            val uri = Uri.parse(content)
-            val iam = uri.getQueryParameter("iam")
-            val gh = uri.getQueryParameter("gh")
-            val tw = uri.getQueryParameter("tw")
-
-            // Room
-            val db = Room.databaseBuilder(context!!, MyDatabase::class.java, "user").build()
-
-            val user = User()
-            user.fullName = iam.toString()
-            user.gitHub = gh.toString()
-            user.twitter = tw.toString()
-
-            Toast.makeText(context, content.toString(), Toast.LENGTH_LONG).show()
-
-            thread {
-                db.userDao().insert(user)
-            }
-
-
-            getUserDB()
-
-        } else if (resultCode == Activity.RESULT_CANCELED) {
-            // だめだった時の処理
-            Toast.makeText(context, "QR Read Error", Toast.LENGTH_LONG).show()
+    private fun checkState(state: FriendListState) {
+        Log.d("DojoApp", "Stateの変更検知！")
+//        if (state.friendList != null) {
+//            Log.d("DojoApp", "friendListAdapterにセットだよ${state.friendList}")
+//            friendListAdapter.setFriends(state.friendList)
+//        }
+        if (state.isReadSuccess && state.readResultData != null) {
+            Log.d("DojoApp", "friendをセーブします")
+            viewModel.saveFriend(state.readResultData)
         }
     }
 }
