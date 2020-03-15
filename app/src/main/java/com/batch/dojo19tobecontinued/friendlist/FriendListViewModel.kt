@@ -51,15 +51,18 @@ class FriendListViewModel : ViewModel() {
             Log.d("DojoApp", "$friend をセーブしました")
             repository.insert(friend)
         }
-        _state.value = _state.value?.copy(friendList = repository.allFriends.value)
+//        friendList = repository.allFriends
+        _state.value = _state.value?.copy(
+            friendList = repository.allFriends.value,
+            isReadSuccess = false,
+            readResultData = null
+        )
     }
 
     fun getQRReadResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
-            Log.d("DojoApp", "QRコード結果取得成功")
             _state.value = _state.value?.copy(isReadSuccess = true, readResultData = data)
         } else if (resultCode == Activity.RESULT_CANCELED) {
-            Log.d("DojoApp", "QRコード結果取得失敗")
             _state.value = _state.value?.copy(isReadSuccess = false, readResultData = null)
         }
     }

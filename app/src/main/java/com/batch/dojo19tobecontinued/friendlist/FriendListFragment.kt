@@ -62,6 +62,11 @@ class FriendListFragment : Fragment() {
             }
         }
 
+//        viewModel.friendList.observe(this, Observer {
+//            Log.d("DojoApp", "friendList変更検知！中身$it")
+//            friendListAdapter.setFriends(it)
+//        })
+
         viewModel.state.observe(this, Observer {
             checkState(it)
         })
@@ -73,7 +78,6 @@ class FriendListFragment : Fragment() {
     }
 
     private fun checkState(state: FriendListState) {
-        Log.d("DojoApp", "checkState呼ばれたよ．friendListの中身${state.friendList}")
         if (state.friendList != null) {
             Log.d("DojoApp", "friendListAdapterにセットだよ")
             friendListAdapter.setFriends(state.friendList)
