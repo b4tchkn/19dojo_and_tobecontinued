@@ -31,9 +31,11 @@ class FriendListViewModel : ViewModel() {
     }
 
     fun addFriend() {
-        val friend = Friend(fullName = "HOGE", githubID = "@githubhoge", twitterID = "twitterhoge")
-//        val friendDao = AppDatabase.getFriendDatabase(context).friendDao()
-//        val repository = FriendRepository(friendDao)
+        val friend = Friend(
+            fullName = "HOGE${allFriends.value?.size}",
+            githubID = "@githubhoge",
+            twitterID = "twitterhoge"
+        )
         scope.launch(Dispatchers.IO) {
             repository.insert(friend)
         }
