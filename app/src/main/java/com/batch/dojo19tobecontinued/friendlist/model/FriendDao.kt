@@ -11,6 +11,7 @@ interface FriendDao {
     @Query("SELECT * FROM friend")
     fun getAllFriends(): LiveData<List<Friend>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     fun insertFriend(friend: Friend)
 }

@@ -16,7 +16,7 @@ import kotlin.coroutines.CoroutineContext
 
 class FriendListViewModel : ViewModel() {
 
-    var allFriends = MutableLiveData<List<Friend>>()
+    lateinit var allFriends: LiveData<List<Friend>>
     private lateinit var repository: FriendRepository
 
     private val job = Job()
@@ -27,7 +27,7 @@ class FriendListViewModel : ViewModel() {
     fun loadDatabase(context: Context) {
         val friendDao = AppDatabase.getFriendDatabase(context).friendDao()
         repository = FriendRepository(friendDao)
-        allFriends.value = repository.allFriends.value
+        allFriends = repository.allFriends
     }
 
     fun addFriend() {
@@ -37,9 +37,13 @@ class FriendListViewModel : ViewModel() {
         scope.launch(Dispatchers.IO) {
             repository.insert(friend)
         }
-        allFriends.value = repository.allFriends.value
+        allFriends = repository.allFriends
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        job.cancel()
+    }
 //    fun fetchFriendList(context: Context, owner: LifecycleOwner) {
 //        val db = Room.databaseBuilder(context, MyDatabase::class.java, "user").build()
 //        db.userDao().getUsers().observe(owner, Observer {
