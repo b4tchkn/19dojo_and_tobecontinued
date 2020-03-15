@@ -38,14 +38,13 @@ class FriendListFragment : Fragment() {
 
         friend_recycler_view.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = friendListAdapter
-//            val alphaAdapter = AlphaInAnimationAdapter(adapter)
-//            adapter = ScaleInAnimationAdapter(alphaAdapter).apply {
-//                setDuration(500)
-//                setHasStableIds(false)
-//                setFirstOnly(false)
-//                setInterpolator(OvershootInterpolator(.100f))
-//            }
+            val alphaAdapter = AlphaInAnimationAdapter(friendListAdapter)
+            adapter = ScaleInAnimationAdapter(alphaAdapter).apply {
+                setDuration(500)
+                setHasStableIds(false)
+                setFirstOnly(false)
+                setInterpolator(OvershootInterpolator(.100f))
+            }
         }
         add_friend_button.setOnClickListener { viewModel.addFriend() }
 
