@@ -79,7 +79,7 @@ class FriendListFragment : Fragment() {
     private fun checkState(state: FriendListState) {
         Log.d("DojoApp", "Stateの変更検知！")
 //        if (state.friendList != null) {
-//            Log.d("DojoApp", "friendListAdapterにセットだよ")
+//            Log.d("DojoApp", "friendListAdapterにセットだよ${state.friendList}")
 //            friendListAdapter.setFriends(state.friendList)
 //        }
         if (state.isReadSuccess && state.readResultData != null) {

@@ -32,6 +32,8 @@ class FriendListViewModel : ViewModel() {
     fun loadDatabase(context: Context) {
         val friendDao = AppDatabase.getFriendDatabase(context).friendDao()
         repository = FriendRepository(friendDao)
+        Log.d("DojoApp-loadDatabase", "Roomの中${repository.allFriends}")
+        Log.d("DojoApp-loadDatabase", "Roomの中${repository.allFriends.value}")
         friendList = repository.allFriends
 //        _state.value = _state.value?.copy(friendList = repository.allFriends.value)
     }
@@ -50,7 +52,6 @@ class FriendListViewModel : ViewModel() {
         scope.launch(Dispatchers.IO) {
             Log.d("DojoApp", "$friend をセーブします")
             repository.insert(friend)
-            Log.d("DojoApp", "データをinsertしました．今のRoomの状況${repository.allFriends.value}")
         }
         friendList = repository.allFriends
 //        _state.value = _state.value?.copy(
