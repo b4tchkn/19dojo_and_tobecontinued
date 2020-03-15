@@ -2,13 +2,11 @@ package com.batch.dojo19tobecontinued.friendlist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.batch.dojo19tobecontinued.R
 import com.batch.dojo19tobecontinued.databinding.FriendlistItemBinding
 import com.batch.dojo19tobecontinued.friendlist.model.Friend
-import com.batch.dojo19tobecontinued.friendlist.model.User
 
 class FriendListAdapter : RecyclerView.Adapter<FriendListAdapter.FriendListViewHolder>() {
 
