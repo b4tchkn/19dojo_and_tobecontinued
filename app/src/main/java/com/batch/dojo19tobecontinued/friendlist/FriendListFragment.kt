@@ -36,7 +36,6 @@ class FriendListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("DojoApp", "onViewCreatedだよ")
         viewModel.loadDatabase(requireContext())
 
         friend_recycler_view.apply {
@@ -78,12 +77,13 @@ class FriendListFragment : Fragment() {
     }
 
     private fun checkState(state: FriendListState) {
+        Log.d("DojoApp", "Stateの変更検知！")
         if (state.friendList != null) {
             Log.d("DojoApp", "friendListAdapterにセットだよ")
             friendListAdapter.setFriends(state.friendList)
         }
         if (state.isReadSuccess && state.readResultData != null) {
-            Log.d("DojoApp", "saveFriendだよ")
+            Log.d("DojoApp", "friendをセーブします")
             viewModel.saveFriend(state.readResultData)
         }
     }

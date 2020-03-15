@@ -48,10 +48,11 @@ class FriendListViewModel : ViewModel() {
             twitterID = twitterID
         )
         scope.launch(Dispatchers.IO) {
-            Log.d("DojoApp", "$friend をセーブしました")
+            Log.d("DojoApp", "$friend をセーブします")
             repository.insert(friend)
+            Log.d("DojoApp", "データをinsertしました．今のRoomの状況${repository.allFriends.value}")
         }
-//        friendList = repository.allFriends
+        friendList = repository.allFriends
         _state.value = _state.value?.copy(
             friendList = repository.allFriends.value,
             isReadSuccess = false,
