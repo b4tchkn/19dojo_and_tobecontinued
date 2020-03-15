@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import com.batch.dojo19tobecontinued.friendlist.model.Friend
 
 data class FriendListState(
-    val friendList: LiveData<List<Friend>>?,
+    val friendList: List<Friend>?,
     val isReadSuccess: Boolean,
     val readResultData: Intent?
 ) {

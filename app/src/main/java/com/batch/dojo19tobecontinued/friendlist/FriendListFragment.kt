@@ -51,7 +51,9 @@ class FriendListFragment : Fragment() {
         }
 //        add_friend_button.setOnClickListener { viewModel.addFriendTest() }
 
-        add_friend_button.setOnClickListener { viewModel.openCamera(requireActivity()) }
+        add_friend_button.setOnClickListener {
+            viewModel.openCamera(requireActivity())
+        }
 //        viewModel.allFriends.observe(this, Observer { friends ->
 //            friends?.let {
 //                friendListAdapter.setFriends(it)
@@ -65,13 +67,13 @@ class FriendListFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Toast.makeText(context, "読み取ったよ", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "読み取ったよ", Toast.LENGTH_SHORT).show()
         viewModel.getQRReadResult(requireContext(), requestCode, resultCode, data)
     }
 
     private fun checkState(state: FriendListState) {
-        if (state.friendList?.value != null) {
-            friendListAdapter.setFriends(state.friendList.value as List<Friend>)
+        if (state.friendList != null) {
+            friendListAdapter.setFriends(state.friendList)
         }
         if (state.isReadSuccess && state.readResultData != null) {
             viewModel.saveFriend(state.readResultData)

@@ -32,22 +32,22 @@ class FriendListViewModel : ViewModel() {
     fun loadDatabase(context: Context) {
         val friendDao = AppDatabase.getFriendDatabase(context).friendDao()
         repository = FriendRepository(friendDao)
-        _state.value = _state.value?.copy(friendList = repository.allFriends)
-//        allFriends = repository.allFriends
+        _state.value = _state.value?.copy(friendList = repository.allFriends.value)
     }
+//        allFriends = repository.allFriends
 
-    fun addFriendTest() {
-        val friend = Friend(
-            fullName = "HOGE${_state.value?.friendList?.value?.size}",
-            githubID = "@githubhoge",
-            twitterID = "twitterhoge"
-        )
-        scope.launch(Dispatchers.IO) {
-            repository.insert(friend)
-        }
-        _state.value = _state.value?.copy(friendList = repository.allFriends)
+//    fun addFriendTest() {
+//        val friend = Friend(
+//            fullName = "HOGE${_state.value?.friendList?.value?.size}",
+//            githubID = "@githubhoge",
+//            twitterID = "twitterhoge"
+//        )
+//        scope.launch(Dispatchers.IO) {
+//            repository.insert(friend)
+//        }
+//        _state.value = _state.value?.copy(friendList = repository.allFriends)
 //        allFriends = repository.allFriends
-    }
+//    }
 
     fun openCamera(activity: Activity) {
         try {
@@ -75,7 +75,7 @@ class FriendListViewModel : ViewModel() {
         scope.launch(Dispatchers.IO) {
             repository.insert(friend)
         }
-        _state.value = _state.value?.copy(friendList = repository.allFriends)
+        _state.value = _state.value?.copy(friendList = repository.allFriends.value)
     }
 
     fun getQRReadResult(context: Context, requestCode: Int, resultCode: Int, data: Intent?) {
