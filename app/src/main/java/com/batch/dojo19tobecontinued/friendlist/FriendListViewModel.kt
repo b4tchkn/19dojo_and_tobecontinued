@@ -32,8 +32,8 @@ class FriendListViewModel : ViewModel() {
     fun loadDatabase(context: Context) {
         val friendDao = AppDatabase.getFriendDatabase(context).friendDao()
         repository = FriendRepository(friendDao)
-//        friendList = repository.allFriends
-        _state.value = _state.value?.copy(friendList = repository.allFriends.value)
+        friendList = repository.allFriends
+//        _state.value = _state.value?.copy(friendList = repository.allFriends.value)
     }
 
     fun saveFriend(data: Intent) {
@@ -53,11 +53,11 @@ class FriendListViewModel : ViewModel() {
             Log.d("DojoApp", "データをinsertしました．今のRoomの状況${repository.allFriends.value}")
         }
         friendList = repository.allFriends
-        _state.value = _state.value?.copy(
-            friendList = repository.allFriends.value,
-            isReadSuccess = false,
-            readResultData = null
-        )
+//        _state.value = _state.value?.copy(
+//            friendList = repository.allFriends.value,
+//            isReadSuccess = false,
+//            readResultData = null
+//        )
     }
 
     fun getQRReadResult(requestCode: Int, resultCode: Int, data: Intent?) {
