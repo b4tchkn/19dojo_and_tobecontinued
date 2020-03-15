@@ -1,18 +1,19 @@
 package com.batch.dojo19tobecontinued.friendlist
 
-import com.batch.dojo19tobecontinued.friendlist.model.User
-import java.lang.Exception
+import android.content.Intent
+import androidx.lifecycle.LiveData
+import com.batch.dojo19tobecontinued.friendlist.model.Friend
 
-data class FriendListState (
-    val friendList: List<User>,
-    val isOpenCameraSuccess: Boolean,
-    val isReadSuccess: Boolean
+data class FriendListState(
+    val friendList: LiveData<List<Friend>>?,
+    val isReadSuccess: Boolean,
+    val readResultData: Intent?
 ) {
     companion object {
         val INITIAL = FriendListState(
-            friendList = emptyList(),
-            isOpenCameraSuccess = false,
-            isReadSuccess = false
+            friendList = null,
+            isReadSuccess = false,
+            readResultData = null
         )
     }
 }

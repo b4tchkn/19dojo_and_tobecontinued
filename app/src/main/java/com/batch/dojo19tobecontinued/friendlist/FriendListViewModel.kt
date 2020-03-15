@@ -1,13 +1,15 @@
 package com.batch.dojo19tobecontinued.friendlist
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.batch.dojo19tobecontinued.friendlist.model.Friend
 import com.batch.dojo19tobecontinued.friendlist.model.AppDatabase
-import com.batch.dojo19tobecontinued.friendlist.model.FriendDao
+import com.batch.dojo19tobecontinued.friendlist.model.Friend
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -16,7 +18,10 @@ import kotlin.coroutines.CoroutineContext
 
 class FriendListViewModel : ViewModel() {
 
-    lateinit var allFriends: LiveData<List<Friend>>
+    private val _state = MutableLiveData(FriendListState.INITIAL)
+    val state: LiveData<FriendListState> = _state
+
+    //    lateinit var allFriends: LiveData<List<Friend>>
     private lateinit var repository: FriendRepository
 
     private val job = Job()
@@ -27,19 +32,60 @@ class FriendListViewModel : ViewModel() {
     fun loadDatabase(context: Context) {
         val friendDao = AppDatabase.getFriendDatabase(context).friendDao()
         repository = FriendRepository(friendDao)
-        allFriends = repository.allFriends
+        _state.value = _state.value?.copy(friendList = repository.allFriends)
+//        allFriends = repository.allFriends
     }
 
-    fun addFriend() {
+    fun addFriendTest() {
         val friend = Friend(
-            fullName = "HOGE${allFriends.value?.size}",
+            fullName = "HOGE${_state.value?.friendList?.value?.size}",
             githubID = "@githubhoge",
             twitterID = "twitterhoge"
         )
         scope.launch(Dispatchers.IO) {
             repository.insert(friend)
         }
-        allFriends = repository.allFriends
+        _state.value = _state.value?.copy(friendList = repository.allFriends)
+//        allFriends = repository.allFriends
+    }
+
+    fun openCamera(activity: Activity) {
+        try {
+            val intent = Intent("com.google.zxing.client.android.SCAN")
+            intent.putExtra("SCANMODE", "QR_CODE_MODE")
+            activity.startActivityForResult(intent, 0)
+        } catch (e: Exception) {
+            val marketUri = Uri.parse("market://details?id=com.google.zxing.client.android")
+            val marketIntent = Intent(Intent.ACTION_VIEW, marketUri)
+            activity.startActivity(marketIntent)
+        }
+    }
+
+    fun saveFriend(data: Intent) {
+        val content = data.getStringExtra("SCAN_RESLT")
+        val uri = Uri.parse(content)
+        val fullName = uri.getQueryParameter("iam").toString()
+        val githubID = uri.getQueryParameter("gh").toString()
+        val twitterID = uri.getQueryParameter("tw").toString()
+        val friend = Friend(
+            fullName = fullName,
+            githubID = githubID,
+            twitterID = twitterID
+        )
+        scope.launch(Dispatchers.IO) {
+            repository.insert(friend)
+        }
+        _state.value = _state.value?.copy(friendList = repository.allFriends)
+    }
+
+    fun getQRReadResult(context: Context, requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
+            _state.value = _state.value?.copy(isReadSuccess = true, readResultData = data)
+            Toast.makeText(context, data.toString(), Toast.LENGTH_SHORT).show()
+        } else {
+            _state.value = _state.value?.copy(isReadSuccess = false, readResultData = null)
+            Toast.makeText(context, "読み取り失敗", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onCleared() {
@@ -69,15 +115,6 @@ class FriendListViewModel : ViewModel() {
 //
 //        viewModelScope.launch {
 //            db.userDao().insert(user)
-//        }
-//    }
-
-//    fun getQRReadResult(context: Context, requestCode: Int, resultCode: Int, data: Intent?) {
-//        if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
-//            _state.value = _state.value?.copy(isReadSuccess = true)
-//            saveFriend(context, data)
-//        } else {
-//            _state.value = _state.value?.copy(isReadSuccess = false)
 //        }
 //    }
 }
