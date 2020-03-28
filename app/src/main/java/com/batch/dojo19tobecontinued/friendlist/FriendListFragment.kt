@@ -72,18 +72,11 @@ class FriendListFragment : Fragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        Log.d("DojoApp", "onActivityResultだよ")
         viewModel.getQRReadResult(requestCode, resultCode, data)
     }
 
     private fun checkState(state: FriendListState) {
-        Log.d("DojoApp", "Stateの変更検知！")
-//        if (state.friendList != null) {
-//            Log.d("DojoApp", "friendListAdapterにセットだよ${state.friendList}")
-//            friendListAdapter.setFriends(state.friendList)
-//        }
         if (state.isReadSuccess && state.readResultData != null) {
-            Log.d("DojoApp", "friendをセーブします")
             viewModel.saveFriend(state.readResultData)
         }
     }
