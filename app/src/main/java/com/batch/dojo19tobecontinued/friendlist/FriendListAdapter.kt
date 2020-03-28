@@ -10,13 +10,11 @@ import com.batch.dojo19tobecontinued.friendlist.model.Friend
 
 class FriendListAdapter : RecyclerView.Adapter<FriendListAdapter.FriendListViewHolder>() {
 
-//    lateinit var listener: AdapterView.OnItemClickListener
     private var friends = emptyList<Friend>()
 
     class FriendListViewHolder(var view: FriendlistItemBinding) : RecyclerView.ViewHolder(view.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendListViewHolder {
-//        setOnItemClickListener(listener)
         val inflater = LayoutInflater.from(parent.context)
         val view = DataBindingUtil.inflate<FriendlistItemBinding>(
             inflater,
@@ -33,9 +31,6 @@ class FriendListAdapter : RecyclerView.Adapter<FriendListAdapter.FriendListViewH
         holder.view.friend = friends[position]
     }
 
-//    fun setOnItemClickListener(listener: AdapterView.OnItemClickListener) {
-//        this.listener = listener
-//    }
 
     internal fun setFriends(friends: List<Friend>) {
         this.friends = friends
