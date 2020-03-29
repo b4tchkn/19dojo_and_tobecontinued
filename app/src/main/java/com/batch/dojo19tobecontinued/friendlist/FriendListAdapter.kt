@@ -1,7 +1,11 @@
 package com.batch.dojo19tobecontinued.friendlist
 
+import android.content.Context
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.batch.dojo19tobecontinued.R
@@ -29,10 +33,26 @@ class FriendListAdapter : RecyclerView.Adapter<FriendListAdapter.FriendListViewH
 
     override fun onBindViewHolder(holder: FriendListViewHolder, position: Int) {
         holder.view.friend = friends[position]
+        holder.view.twitterButton.setOnClickListener {
+            val twitterUri = "https://twitter.com/${friends[position].twitterID}".toUri()
+            openCustomTabs(holder.view.twitterButton.context, twitterUri)
+        }
+        holder.view.githubButton.setOnClickListener {
+            val githubUri = "https://github.com/${friends[position].githubID}".toUri()
+            openCustomTabs(holder.view.githubButton.context, githubUri)
+        }
+    }
+
+    private fun openCustomTabs(context: Context, uri: Uri) {
+        val tabsIntent = CustomTabsIntent.Builder()
+            .setShowTitle(true)
+            .setToolbarColor(context.getColor(R.color.colorPrimary))
+            .build()
+        tabsIntent.launchUrl(context, uri)
     }
 
 
-    internal fun setFriends(friends: List<Friend>) {
+    fun setFriends(friends: List<Friend>) {
         this.friends = friends
         notifyDataSetChanged()
     }
