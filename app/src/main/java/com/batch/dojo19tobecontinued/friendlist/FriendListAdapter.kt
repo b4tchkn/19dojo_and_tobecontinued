@@ -1,10 +1,8 @@
 package com.batch.dojo19tobecontinued.friendlist
 
-import android.content.Context
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +10,14 @@ import com.batch.dojo19tobecontinued.R
 import com.batch.dojo19tobecontinued.databinding.FriendlistItemBinding
 import com.batch.dojo19tobecontinued.friendlist.model.Friend
 
-class FriendListAdapter : RecyclerView.Adapter<FriendListAdapter.FriendListViewHolder>() {
+class FriendListAdapter(private val listener: OnMyItemClickListener) : RecyclerView.Adapter<FriendListAdapter.FriendListViewHolder>() {
+
+
+    interface OnMyItemClickListener {
+        fun onTwitterButtonClick(twitterUri: Uri)
+        fun onGithubButtonClick(githubUri: Uri)
+    }
+
 
     private var friends = emptyList<Friend>()
 
@@ -32,28 +37,17 @@ class FriendListAdapter : RecyclerView.Adapter<FriendListAdapter.FriendListViewH
     override fun getItemCount() = friends.size
 
     override fun onBindViewHolder(holder: FriendListViewHolder, position: Int) {
-        holder.view.friend = friends[position]
-        holder.view.twitterButton.setOnClickListener {
-            val twitterUri = "https://twitter.com/${friends[position].twitterID}".toUri()
-            openCustomTabs(holder.view.twitterButton.context, twitterUri)
-        }
-        holder.view.githubButton.setOnClickListener {
-            val githubUri = "https://github.com/${friends[position].githubID}".toUri()
-            openCustomTabs(holder.view.githubButton.context, githubUri)
+        val twitterUri = "https://twitter.com/${friends[position].twitterID}".toUri()
+        val githubUri = "https://github.com/${friends[position].githubID}".toUri()
+
+        holder.view.apply {
+            friend = friends[position]
+            twitterButton.setOnClickListener { listener.onTwitterButtonClick(twitterUri) }
+            githubButton.setOnClickListener { listener.onGithubButtonClick(githubUri) }
         }
     }
-
-    private fun openCustomTabs(context: Context, uri: Uri) {
-        val tabsIntent = CustomTabsIntent.Builder()
-            .setShowTitle(true)
-            .setToolbarColor(context.getColor(R.color.colorPrimary))
-            .build()
-        tabsIntent.launchUrl(context, uri)
-    }
-
-
-    fun setFriends(friends: List<Friend>) {
-        this.friends = friends
-        notifyDataSetChanged()
+        fun setFriends(friends: List<Friend>) {
+            this.friends = friends
+            notifyDataSetChanged()
     }
 }

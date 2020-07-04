@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,9 +18,9 @@ import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import kotlinx.android.synthetic.main.fragment_friendlist.*
 
-class FriendListFragment : Fragment() {
+class FriendListFragment : Fragment(), FriendListAdapter.OnMyItemClickListener {
 
-    private val friendListAdapter = FriendListAdapter()
+    private val friendListAdapter = FriendListAdapter(this)
 
     private val viewModel: FriendListViewModel by lazy {
         ViewModelProvider(this).get(FriendListViewModel::class.java)
@@ -79,5 +80,20 @@ class FriendListFragment : Fragment() {
         if (state.isReadSuccess && state.readResultData != null) {
             viewModel.saveFriend(state.readResultData)
         }
+    }
+
+    override fun onTwitterButtonClick(twitterUri: Uri) {
+        openCustomTabs(twitterUri)
+    }
+
+    override fun onGithubButtonClick(githubUri: Uri) {
+        openCustomTabs(githubUri)
+    }
+    private fun openCustomTabs(uri: Uri) {
+        val tabsIntent = CustomTabsIntent.Builder()
+            .setShowTitle(true)
+            .setToolbarColor(requireContext().getColor(R.color.colorPrimary))
+            .build()
+        tabsIntent.launchUrl(requireContext(), uri)
     }
 }

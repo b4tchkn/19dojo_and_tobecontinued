@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.batch.dojo19tobecontinued.Keys
 import com.batch.dojo19tobecontinued.R
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
@@ -31,6 +32,8 @@ class MyPageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE) ?: return
+
+        val name = sharedPref.getString(Keys.NAME_KEY, "")
         val fullName = sharedPref.getString(getString(R.string.full_name_key), "")
         val githubID = sharedPref.getString(getString(R.string.github_key), "")
         val twitterID = sharedPref.getString(getString(R.string.twitter_key), "")
